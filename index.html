@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的健身追踪器</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💪</text></svg>">
+    <script src="app.js"></script>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>💪 我的健身追踪器</h1>
+        </header>
+
+        <!-- 主页：选择训练部位 -->
+        <div id="home-screen" class="screen active">
+            <h2>选择今日训练部位</h2>
+            <div class="muscle-group-buttons">
+                <button onclick="startWorkout('背')">背</button>
+                <button onclick="startWorkout('胸')">胸</button>
+                <button onclick="startWorkout('腿')">腿</button>
+                <button onclick="startWorkout('肩')">肩</button>
+                <button onclick="startWorkout('手臂')">手臂</button>
+            </div>
+        </div>
+
+        <!-- 训练详情页 -->
+        <div id="workout-screen" class="screen">
+            <div class="workout-header">
+                <h2 id="current-muscle-group">-</h2>
+                <button class="btn-secondary" onclick="showHistory()">更多历史</button>
+            </div>
+            
+            <div id="history-screen" class="history-list hidden">
+                <h3>选择历史记录</h3>
+                <ul id="history-list-ul">
+                    <!-- 历史记录项将在这里动态生成 -->
+                </ul>
+                <button class="btn-secondary" onclick="hideHistory()">返回训练</button>
+            </div>
+
+            <div id="exercises-container">
+                <!-- 动作列表将在这里动态生成 -->
+            </div>
+            <button id="add-exercise-btn" onclick="addNewExercise()">+ 添加新动作</button>
+            <button id="save-workout-btn" onclick="saveWorkout()">保存本次训练</button>
+            <button class="btn-secondary" onclick="showHomeScreen()">返回</button>
+        </div>
+    </div>
+</body>
+</html>
