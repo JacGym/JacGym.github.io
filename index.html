@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>健身助手</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- 移除 SortableJS 库 -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script> -->
+</head>
+<body>
+
+  <!-- 首页 -->
+  <div id="home-screen" class="screen active">
+    <div class="header">
+      <button class="btn-secondary">首页</button>
+      <h2>选择训练部位</h2>
+      <button class="btn-secondary" onclick="showHistory()">历史记录</button>
+    </div>
+
+    <button class="btn-primary" onclick="startWorkout('back')">背</button>
+    <button class="btn-primary" onclick="startWorkout('chest')">胸</button>
+    <button class="btn-primary" onclick="startWorkout('legs')">腿</button>
+    <button class="btn-primary" onclick="startWorkout('shoulders')">肩</button>
+    <button class="btn-primary" onclick="startWorkout('arms')">手臂</button>
+  </div>
+
+  <!-- 训练页面 -->
+  <div id="workout-screen" class="screen">
+    <div class="header">
+      <button class="btn-secondary" onclick="goHome()">返回</button>
+      <h2 id="workout-title">背 训练</h2>
+      <button class="btn-secondary" onclick="showHistory()">更多历史</button>
+    </div>
+
+    <ul id="exercise-list" class="exercise-list">
+      <!-- 动态内容将通过 JavaScript 插入 -->
+    </ul>
+
+    <div class="actions">
+      <button class="btn-add" onclick="addExercise()">+ 添加动作</button>
+      <button class="btn-save" onclick="saveWorkout()">保存本次训练</button>
+    </div>
+  </div>
+
+  <!-- 历史记录模态框 -->
+  <div id="history-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>历史记录</h3>
+        <button class="close-btn" onclick="closeHistoryModal()">&times;</button>
+      </div>
+      <ul class="history-list">
+        <li class="history-item">2023-10-27 - 胸部训练</li>
+        <li class="history-item">2023-10-25 - 背部训练</li>
+        <!-- 更多历史项 -->
+      </ul>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
