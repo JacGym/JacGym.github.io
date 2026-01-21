@@ -1,0 +1,333 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #f8fafc;
+  color: #1e293b;
+  line-height: 1.5;
+  /* 适配安全区域 */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  touch-action: pan-y;
+}
+
+/* 屏幕基础样式 */
+.screen {
+  display: none; /* 默认隐藏 */
+  padding: 16px;
+  max-width: 500px; /* 控制最大宽度 */
+  margin: 0 auto; /* 居中 */
+}
+
+.screen.active {
+  display: block; /* 显示当前屏幕 */
+}
+
+/* 通用按钮样式 */
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: background-color 0.2s;
+  padding: 10px 16px; /* 内边距 */
+  white-space: nowrap; /* 防止换行 */
+}
+
+/* 主标题按钮 */
+.btn-primary {
+  background: #3b82f6;
+  color: white;
+  width: 100%;
+  margin-bottom: 12px;
+  height: 50px;
+}
+
+.btn-primary:hover {
+  background: #2563eb;
+}
+
+/* 次要按钮 (返回/更多/移动按钮) */
+.btn-secondary {
+  background: #e2e8f0;
+  color: #475569;
+  min-width: 80px; /* 确保按钮有一定宽度 */
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: #cbd5e1; /* 只对非禁用按钮应用悬停效果 */
+}
+
+/* 新增：移动按钮样式 */
+.move-buttons {
+  display: flex;
+  gap: 4px; /* 按钮之间的小间距 */
+  margin-right: 8px; /* 与删除按钮之间留点距离 */
+}
+
+.btn-move {
+  width: 30px; /* 固定宽度 */
+  height: 30px; /* 固定高度 */
+  padding: 0; /* 移除内边距 */
+  font-size: 16px; /* **关键修改**：增大字体大小以放大三角形 */
+  display: flex; /* 使用 flex 使图标居中 */
+  align-items: center;
+  justify-content: center;
+  /* Unicode 图标会自动居中 */
+}
+
+/* 添加/保存按钮 */
+.btn-add, .btn-save {
+  background: #10b981;
+  color: white;
+  flex: 1; /* 在 actions 容器中平分空间 */
+  height: 50px;
+}
+
+.btn-add:hover, .btn-save:hover {
+  background: #059669;
+}
+
+/* 删除按钮 */
+.btn-delete {
+  background: #ef4444;
+  color: white;
+  padding: 4px 8px; /* 较小的内边距 */
+  font-size: 14px;
+  min-width: auto; /* 不限制最小宽度 */
+  height: auto; /* 自适应高度 */
+}
+
+.btn-delete:hover {
+  background: #dc2626;
+}
+
+/* 头部样式 */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 16px;
+}
+
+.header h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #334155;
+  margin: 0; /* 移除默认外边距 */
+}
+
+/* 动作列表样式 */
+.exercise-list {
+  list-style: none;
+  margin-bottom: 16px; /* 与底部按钮区分开 */
+}
+
+.exercise-item {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+/* 动作头部 */
+.exercise-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px; /* 与下面的组别区分开 */
+}
+
+.exercise-name {
+  font-weight: 600;
+  font-size: 18px;
+  color: #334155;
+  flex-grow: 1; /* 占据剩余空间 */
+}
+
+/* 新增：组别部分 */
+.set-section {
+  display: flex;
+  align-items: center; /* 垂直居中对齐 */
+  margin-bottom: 8px; /* 组之间留点间距 */
+  gap: 8px; /* 内部元素之间的间距 */
+  flex-wrap: wrap; /* 允许换行，以防空间不足 */
+}
+
+.set-label {
+  font-weight: 500;
+  color: #64748b;
+  font-size: 14px; /* 统一字体大小 */
+  min-width: 60px; /* 组名标签最小宽度 */
+  text-align: right; /* 右对齐，看起来更整齐 */
+  padding-right: 4px; /* 与输入框之间的小间距 */
+}
+
+.set-inputs {
+  display: flex;
+  align-items: center; /* 垂直居中对齐 */
+  flex-grow: 1; /* 占据剩余空间 */
+  gap: 4px; /* 输入项之间的间距 */
+  flex-wrap: wrap; /* 允许换行 */
+}
+
+.input-label {
+  font-size: 14px;
+  color: #64748b;
+  white-space: nowrap; /* 标签不换行 */
+}
+
+.weight-input, .reps-input {
+  width: 60px;
+  padding: 6px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* 调整：缩短备注框宽度，增加与 'kg' 的间距 */
+.short-note-input {
+  flex-grow: 0; /* 不再自动占据剩余空间 */
+  width: 80px; /* 固定一个较短的宽度 */
+  min-width: 80px; /* 保持最小宽度 */
+  padding: 6px 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #475569;
+  flex-shrink: 0; /* 防止被压缩 */
+}
+
+/* 动作备注输入框 */
+.note-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #475569;
+  margin-top: 12px; /* 与上面的组别区分开 */
+  background-color: #f1f5f9; /* 轻微背景色区分 */
+}
+
+.note-input::placeholder {
+  color: #94a3b8;
+}
+
+/* 底部操作按钮 */
+.actions {
+  display: flex;
+  gap: 12px; /* 按钮之间留间距 */
+}
+
+/* 历史记录模态框 */
+#history-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* 半透明遮罩 */
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh; /* 最大高度 */
+  overflow-y: auto; /* 内容过多时可滚动 */
+  padding: 20px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.modal-header h3 {
+  margin: 0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #94a3b8;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.history-list {
+  list-style: none;
+}
+
+.history-item {
+  padding: 12px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.history-item:last-child {
+  border-bottom: none;
+}
+
+/* 响应式调整 */
+@media (max-width: 480px) {
+  .header h2 {
+    font-size: 18px;
+  }
+
+  .exercise-name {
+    font-size: 16px;
+  }
+
+  .set-label {
+    min-width: 50px;
+    font-size: 13px;
+  }
+
+  .input-label,
+  .weight-input,
+  .reps-input,
+  .short-note-input {
+    font-size: 13px;
+  }
+
+  .weight-input,
+  .reps-input {
+    width: 55px;
+    padding: 5px;
+  }
+
+  /* 响应式调整备注框宽度 */
+  .short-note-input {
+    width: 70px;
+    min-width: 70px;
+  }
+
+  .btn-add, .btn-save {
+    font-size: 14px;
+  }
+
+  .btn-move {
+    width: 28px;
+    height: 28px;
+    font-size: 15px; /* **关键修改**：响应式下也稍微大一点 */
+  }
+}
